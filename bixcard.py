@@ -30,14 +30,13 @@ st.subheader(" :blue[Hello Welcome!]")
 
 # CREATING OPTION MENU
 selected = option_menu(None, ["Upload & Modify", "Delete"],
-                      # icons=["house", "cloud-upload", "pencil-square"],
                        default_index=0,
                        orientation="horizontal",
                        styles={"nav-link": {"font-size": "25px", "text-align": "left", "margin": "-2px",
                                             "--hover-color": "#545454"},
                                "nav-link-selected": {"background-color": "#4682B4"}})
 
-# DELETE MENU
+# Delete Menu
 if selected == "Delete":
     col1, col2 = st.columns([4, 4])
     with col1:
@@ -46,21 +45,20 @@ if selected == "Delete":
         names = ["Select"]
         for i in Y:
             names.append(i[0])
-        name_selected = st.selectbox("Select the name to delete", options=names)
-        # st.write(name_selected)
+        name_selected = st.selectbox(":blue[Select The Name To Be Deleted:]", options=names)
     with col2:
         cursor.execute(f"SELECT DESIGNATION FROM BUSINESS_CARD WHERE NAME = '{name_selected}'")
         Z = cursor.fetchall()
         designation = ["Select"]
         for j in Z:
             designation.append(j[0])
-        designation_selected = st.selectbox("Select the designation of the chosen name", options=designation)
+        designation_selected = st.selectbox(" :blue[Select The Designation Of The Chosen Name:]", options=designation)
 
     st.markdown(" ")
 
     col_a, col_b, col_c = st.columns([5, 3, 3])
     with col_b:
-        remove = st.button("Clik here to delete")
+        remove = st.button("Click here to delete")
     if name_selected and designation_selected and remove:
         cursor.execute(
             f"DELETE FROM BUSINESS_CARD WHERE NAME = '{name_selected}' AND DESIGNATION = '{designation_selected}'")
@@ -70,7 +68,7 @@ if selected == "Delete":
 
 
 
-# extract the data
+# Extracting the data from image
 def extracted_text(picture):
     ext_dic = {'Name': [], 'Designation': [], 'Company name': [], 'Contact': [], 'Email': [], 'Website': [],
                'Address': [], 'Pincode': []}
@@ -203,6 +201,6 @@ if selected == "Upload & Modify":
                         mydb.commit()
                         st.success('SUCCESSFULLY UPLOADED')
     else:
-        st.write("Upload an image")
+        st.write("Upload the  image")
 
 
